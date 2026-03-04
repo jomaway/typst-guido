@@ -1,6 +1,6 @@
-# Guido 
+# Guido
 
-Meet "Guido", a template for writing guides, manuals or small scripts. 
+Meet 🦉 "Guido", a template for writing guides, manuals or small scripts. 
 
 ## Fonts
 
