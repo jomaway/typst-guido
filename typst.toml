@@ -10,7 +10,7 @@ repository = "https://github.com/jomaway/typst-guido"
 keywords = ["worksheets", "guides", "manuals", "tutorials", "scripts"]
 categories = ["office"]
 disciplines = ["education"]
-exclude = ["/fonts/*""]
+exclude = ["/fonts/*"]
 [template]
 path = "template"
 entrypoint = "handbook.typ"

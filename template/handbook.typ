@@ -1,4 +1,4 @@
-#import "@local/guido:0.0.2": *
+#import "@preview/guido:0.1.0": *
 
 #show: guido.with(
   logo: emoji.owl,
@@ -8,29 +8,3 @@
 )
 
 = Getting started
-
-== Meet Guido
-
-== Installation
-
-== Usage
-
-= Features
-
-== Title page
-
-== Headers and footers
-
-== Chapter page breaks
-
-== Theming
-
-= Customization
-
-== Custom title page
-
-== Custom headers and footers
-
-== Custom chapter page breaks
-
-= Conclusion
