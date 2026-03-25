@@ -5,6 +5,8 @@
 #import "@preview/codly:1.3.0": codly, codly-disable, codly-enable, codly-init
 #import "@preview/codly-languages:0.1.10": codly-languages
 
+#import "./utils.typ": card 
+
 // Bar element for headers and footers
 #let bar(
   color: auto,
@@ -162,6 +164,5 @@
   if show-title-page {
     cover(logo:logo, subtitle:subtitle)
   }
-
   body
 }
