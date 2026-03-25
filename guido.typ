@@ -122,7 +122,7 @@
 
 
   show table: it => {
-    box(radius: 3pt, clip: true, it)
+    block(radius: 3pt, clip: true, it)
   }
 
   show: catppuccin.with(flavor)
