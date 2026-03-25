@@ -23,3 +23,10 @@
     grid.cell(inset: 1em ,body)
   )
 ]
+
+
+#let card-grid(..cards) = grid(
+  columns: 2,
+  gutter: 1em,
+  ..cards
+)
