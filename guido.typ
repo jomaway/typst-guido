@@ -5,7 +5,7 @@
 #import "@preview/codly:1.3.0": codly, codly-disable, codly-enable, codly-init
 #import "@preview/codly-languages:0.1.10": codly-languages
 
-#import "./utils.typ": card 
+#import "./utils.typ": *
 
 // Bar element for headers and footers
 #let bar(
