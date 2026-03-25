@@ -130,6 +130,7 @@
   show: catppuccin.with(flavor)
   show: codly-init.with()
   codly(
+    number-format: none,
     fill: if theme == "latte" { white } else { palette.mantle.rgb.lighten(7%) },
     zebra-fill: if theme == "latte" { white.darken(3%) } else { palette.crust.rgb.lighten(15%) },
     stroke: none,
