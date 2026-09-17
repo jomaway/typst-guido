@@ -6,4 +6,4 @@ Meet 🦉 "Guido", a template for writing guides, manuals or small scripts.
 
 You need to install the following fonts for this template to work.
 
-- [Jellee](https://www.fontsquirrel.com/fonts/jellee)
+- [Days One](https://fonts.google.com/specimen/Days+One)

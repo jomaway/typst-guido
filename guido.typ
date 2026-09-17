@@ -1,5 +1,4 @@
 
-#import "@preview/catppuccin:1.1.0": catppuccin, flavors, get-flavor
 #import "@preview/gentle-clues:1.3.1": *
 #import "@preview/hydra:0.6.2": hydra
 #import "@preview/codly:1.3.0": codly, codly-disable, codly-enable, codly-init
@@ -7,54 +6,7 @@
 
 #import "./utils.typ": *
 
-// Bar element for headers and footers
-#let bar(
-  color: auto,
-) = rect(width: 100%, height: .3em, radius: .25em, stroke: none, fill: if color == auto { red.lighten(60%) } else {
-  color
-})
 
-#let resized-title = layout(size => {
-  let body = title()
-  let font_size = text.size
-  let max_width = size.width // Account for padding;
-
-  let width = measure(text(size: font_size, body)).width
-
-  while width > max_width and font_size > 14pt {
-      font_size -= 0.2pt
-      width = measure(text(size: font_size, body)).width
-  }
-
-  text(size: font_size, body)
-})
-
-#let cover(
-  logo: emoji.book,
-  subtitle: none,
-  outline-depth: 2,
-) = page(header: none)[
-  #align(center)[
-    // Logo or title image
-    #box(height: 5cm)[
-      #if type(logo) == image {
-        logo
-      } else {
-        text(4cm, logo)
-      }
-    ]
-
-    // Title and subtitle
-    #set text(32pt, font: "Jellee Roman")
-    #resized-title
-    #if subtitle != none {
-      block(above: 2em, text(14pt, font: "Jellee Roman", weight: "regular")[#subtitle])
-    }
-  ]
-
-  #v(1fr)
-  #outline(depth: outline-depth)
-]
 
 
 #let guido(
@@ -69,15 +21,23 @@
   theme: "latte",
   bar-color: auto,
   pre-styled-tables: true,
-  show-title-page: true,
+  show-title-page: false,
+  heading-font: "Days One",
   body,
 ) = {
   // PDF metadata
   set document(title: title, author: author, keywords: keywords, date: datetime.today())
 
   // Theme settings
-  let flavor = get-flavor(theme)
-  let palette = flavor.colors
+  let colors = (
+    text: rgb(76, 79, 105),
+    table: (
+      header: gray.lighten(80%),
+      lines: luma(200),
+      even: { white.darken(3%) },
+      odd: { white },
+    )
+  )
 
   // Page Settings
   set page(
@@ -104,30 +64,28 @@
 
   // Text settings
   set par(justify: true)
-  set text(font: "Nunito", lang: "de")
+  set text(font: "Nunito", lang: "de", fill: colors.text)
   set heading(numbering: (..args) => if args.pos().len() <= 3 {
     numbering("1.1.", ..args)
   })
 
+  set figure(supplement: [Abb.])
+
 
   // Table settings
-  let table-colors = (
-    header: palette.surface0.rgb,
-    even: if theme == "latte" { white } else { palette.overlay0.rgb },
-    odd: if theme == "latte" { white } else { palette.overlay0.rgb },
-  )
   set table(
     inset: 0.8em,
-    fill: (_, y) => if y == 0 { table-colors.header } else if calc.rem(y,2) == 0 { table-colors.even } else { table-colors.odd },
-    stroke: none,
+    fill: (_, y) => if y == 0 { colors.table.header } else if calc.rem(y,2) == 0 { colors.table.even } else { colors.table.odd },
+    stroke: (_, y) => if y == 0 { (bottom: 0.6pt + colors.table.lines, rest: none) } else {none},
   ) if pre-styled-tables
 
+  set table.hline(stroke: 0.6pt) if pre-styled-tables
 
   show table: it => {
-    block(radius: 3pt, clip: true, it)
+    block(radius: 3pt, clip: true, stroke: 0.5pt + colors.table.lines, it)
   }
 
-  show: catppuccin.with(flavor)
+
   show: codly-init.with()
   codly(
     number-format: none,
@@ -152,7 +110,8 @@
     languages: codly-languages
   )
 
-  show heading: set text(font: "Jellee Roman")
+  show heading: set text(font: heading-font)
+  show heading: set block(below: 1em)
   show heading.where(level: 1): it => if it.outlined == true and chapter-pagebreak {
     pagebreak(weak: true) + block(smallcaps(it), below: 1em)
   } else { block(smallcaps(it), below: 1em) }
@@ -163,7 +122,7 @@
 
   // Title page
   if show-title-page {
-    cover(logo:logo, subtitle:subtitle)
+    cover(logo:logo, subtitle:subtitle, font: heading-font)
   }
   body
 }
