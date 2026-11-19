@@ -64,12 +64,10 @@
 
   // Text settings
   set par(justify: true)
-  set text(font: "Nunito", lang: "de", fill: colors.text)
+  set text(font: "Nunito", fill: colors.text)
   set heading(numbering: (..args) => if args.pos().len() <= 3 {
     numbering("1.1.", ..args)
   })
-
-  set figure(supplement: [Abb.])
 
 
   // Table settings
